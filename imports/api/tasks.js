@@ -1,13 +1,15 @@
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
 
 export const Tasks = new Mongo.Collection('tasks');
 
 Meteor.methods({
-  'tasks.insert'(text) {
-    check(text, String);
+  'tasks.insert'(description) {
+    check(description, String);
 
     Tasks.insert({
-      text,
+      description,
       createdAt: new Date()
     });
   },
