@@ -15,12 +15,17 @@ Template.task_panel.events({
     Meteor.call('tasks.insert', desc);
 
     target.description.value = '';
+    $('#new-task-toggle').click();
+    $('#new-task-toggle').show();
+    console.log(toastr.success);
+    toastr.success("Tarefa cadastrada com sucesso.");
   },
 
   'click #new-task-toggle' (event) {
     $('#new-task-toggle').hide();
   },
   'click #new-task-cancel' (event) {
+
     $('#new-task-toggle').click();
     $('#new-task-toggle').show();
   }
@@ -28,7 +33,9 @@ Template.task_panel.events({
 
 Template.task_panel.helpers( {
   tasks: function() {
-    return Tasks.find({});
+    return Tasks.find({ $or: [
+        { active: {$eq: true}},
+      ]});
   }
 
 })
