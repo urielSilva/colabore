@@ -1,0 +1,18 @@
+<template name="task_panel">
+
+  <h3>Tarefas</h3>
+
+  <form class="new_task form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <input type="text" name="description"
+        class="form-control input-md" placeholder="Descrição" />
+      </div>
+    </div>
+    <button type="submit" name="button" class="btn btn-primary">Criar</button>
+  </form>
+
+    {{#each tasks}}
+      {{> task}}
+    {{/each}}
+</template>
