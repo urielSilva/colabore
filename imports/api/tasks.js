@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-
+import { Factory } from 'meteor/dburles:factory';
+import faker from 'faker';
 export const Tasks = new Mongo.Collection('tasks');
 
 Meteor.methods({
@@ -24,4 +25,11 @@ Meteor.methods({
     check(taskId, String)
     Tasks.update(taskId, {$set: {active: false}});
   },
+});
+
+Factory.define('task', Tasks, {
+  description: () => faker.lorem.sentence(),
+  createdAt: () => new Date(),
+  active: () => true,
+  checked: () => false,
 });

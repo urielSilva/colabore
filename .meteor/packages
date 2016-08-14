@@ -23,3 +23,7 @@ less
 momentjs:moment
 jss:flat-ui
 chrismbeckett:toastr
+practicalmeteor:mocha
+practicalmeteor:faker
+practicalmeteor:chai
+dburles:factory
