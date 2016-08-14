@@ -1,16 +1,26 @@
 <template name="task_panel">
 
   <h3>Tarefas</h3>
-
-  <form class="new_task form-inline">
-    <div class="form-group">
-      <div class="col-md-8">
-        <input type="text" name="description"
-        class="form-control input-md" placeholder="Descrição" />
+  <div class="row">
+    <a id="new-task-toggle" class="btn btn-primary" role="button" data-toggle="collapse" href="#taskForm" aria-expanded="false" aria-controls="collapseExample">
+      Nova Tarefa
+    </a>
+  </div>
+  <div class="collapse" id="taskForm">
+    <form class="new_task form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-8">
+          <input type="text" name="description" class="form-control" placeholder="Descrição">
+        </div>
       </div>
-    </div>
-    <button type="submit" name="button" class="btn btn-primary">Criar</button>
-  </form>
+      <div class="form-group">
+      </div>
+      <button type="submit" class="btn btn-primary">Criar</button>
+      <button id="new-task-cancel" type="submit" class="btn btn-primary">Cancelar</button>
+    </form>
+  </div>
+
+
 
     {{#each tasks}}
       {{> task}}

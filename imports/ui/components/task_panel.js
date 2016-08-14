@@ -16,6 +16,14 @@ Template.task_panel.events({
     Meteor.call('tasks.insert', desc);
 
     target.description.value = '';
+  },
+
+  'click #new-task-toggle' (event) {
+    $('#new-task-toggle').hide();
+  },
+  'click #new-task-cancel' (event) {
+    $('#new-task-toggle').click();
+    $('#new-task-toggle').show();
   }
 })
 
