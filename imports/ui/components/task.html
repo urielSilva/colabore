@@ -1,6 +1,10 @@
 <template name="task">
   <div class="task-container">
-    <p>{{description}}</p>
+    <div>
+      <p>{{description}}</p>
+      <span class="fui-cross pull-right task-delete"></span>
+    </div>
     <small>Criada em {{formatDate createdAt}}</small>
+    <span class="fui-check pull-right"></span>
   </div>
 </template>

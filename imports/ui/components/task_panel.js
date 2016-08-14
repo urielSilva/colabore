@@ -12,7 +12,6 @@ Template.task_panel.events({
 
     const target = event.target;
     const desc = target.description.value;
-    console.log(desc);
     Meteor.call('tasks.insert', desc);
 
     target.description.value = '';
