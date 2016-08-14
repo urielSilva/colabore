@@ -17,7 +17,6 @@ Template.task_panel.events({
     target.description.value = '';
     $('#new-task-toggle').click();
     $('#new-task-toggle').show();
-    console.log(toastr.success);
     toastr.success("Tarefa cadastrada com sucesso.");
   },
 

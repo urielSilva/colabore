@@ -7,7 +7,7 @@ import { $ } from 'meteor/jquery';
 import { withRenderedTemplate } from '../../test-helpers.js';
 import '../task.js';
 
-describe('Todos_item', function () {
+describe('tasks', function () {
   beforeEach(function () {
     Template.registerHelper('_', key => key);
   });

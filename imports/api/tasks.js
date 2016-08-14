@@ -9,12 +9,15 @@ Meteor.methods({
   'tasks.insert'(description, checked=false, active=true) {
     check(description, String);
 
-    Tasks.insert({
+    let obj = {
       description,
       checked,
       active: active,
       createdAt: new Date()
-    });
+    };
+    var id= 1;
+    return Tasks.insert(obj);
+
   },
 
   'tasks.activate' (taskId) {
