@@ -1,10 +1,15 @@
-  import { Meteor } from 'meteor/meteor';
-  import { Template } from 'meteor/templating';
-  import { $ } from 'meteor/jquery';
-  import { ReactiveDict } from 'meteor/reactive-dict';
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { $ } from 'meteor/jquery';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import { Accounts } from 'meteor/accounts-base'
-  import './login_forms.html'
+import { AccountsServer } from 'meteor/accounts-base'
 import { Roles } from 'meteor/alanning:roles'
+
+import './login_forms.html'
+import '/imports/api/users.js'
+
+
 Template.login.onCreated(function() {
   this.state = new ReactiveDict();
   this.state.setDefault({isLogin: true});
@@ -27,9 +32,11 @@ Template.login.events({
           Meteor.loginWithPassword(email,password);
         } else {
           let name = event.target.name.value;
-          id = Accounts.createUser({email,password, profile: {name, role: "employee"}});
-          Roles.addUsersToRoles(id, ["employee"], Roles.GLOBAL_GROUP);
+          id = Accounts.createUser({email,password,name});
+          Roles.addUsersToRoles(id, "employee", Roles.GLOBAL_GROUP);
         }
+
+
     },
 
     'click .sign-up'(event) {

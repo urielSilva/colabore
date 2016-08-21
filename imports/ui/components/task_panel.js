@@ -6,10 +6,14 @@ import { Tasks } from '../../api/tasks.js'
 import './task_panel.html'
 import './task.js'
 
+Template.task_panel.onCreated(() => {
+  Meteor.subscribe('tasks');
+  Meteor.subscribe('users');
+})
+
 Template.task_panel.events({
   'submit .new_task' (event) {
     event.preventDefault();
-
     const target = event.target;
     const desc = target.description.value;
     Meteor.call('tasks.insert', desc);
@@ -31,10 +35,12 @@ Template.task_panel.events({
 })
 
 Template.task_panel.helpers( {
-  tasks: function() {
-    return Tasks.find({ $or: [
-        { active: {$eq: true}},
-      ]});
+  tasks() {
+    return Tasks.find();
+  },
+  users() {
+    console.log(Meteor.users.find());
+    return Meteor.users.find();
   }
 
 })

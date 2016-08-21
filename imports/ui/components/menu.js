@@ -1,7 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { Tracker } from 'meteor/tracker'
 import { $ } from 'meteor/jquery';
+import '../../api/users.js'
 import './menu.html'
+Template.menu.onCreated(() => {
+  Tracker.autorun(() => {
+      Meteor.subscribe('userData');
+  })
+})
 
 Template.menu.events({
 
@@ -12,5 +19,11 @@ Template.menu.events({
   'click .logout'(event) {
     event.preventDefault();
     Meteor.logout();
+  }
+});
+
+Template.menu.helpers({
+  name() {
+      return Meteor.user().name;
   }
 })

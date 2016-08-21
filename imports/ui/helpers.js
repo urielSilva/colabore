@@ -5,7 +5,5 @@ Template.registerHelper('formatDate', (date) => {
 })
 
 Template.registerHelper('isAdmin', () => {
-  let user = Meteor.user();
-  console.log(user);
-  return user.emails[0].address == "admin@gmail.com";
+  return Meteor.user().emails[0].address == "admin@gmail.com";
 })

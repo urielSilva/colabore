@@ -1,9 +1,27 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
-import { Factory } from 'meteor/dburles:factory';
-import faker from 'faker';
-export const Tasks = new Mongo.Collection('tasks');
+import { AccountsServer } from 'meteor/accounts-base'
+
+if(Meteor.isServer) {
+  Meteor.publish('users', () => {
+    return Meteor.users.find({}, {fields: {
+      name: 1,
+    }});
+  })
+  Meteor.publish('userData', function() {
+    if(!this.userId) return null;
+    return Meteor.users.find(this.userId, {fields: {
+      name: 1,
+    }});
+  });
+  Accounts.onCreateUser((options, user) => {
+    user.name = options.name;
+    console.log(user.name);
+    return user;
+  });
+}
+
+
 
 Meteor.methods({
   'users.insert'(description, checked=false, active=true) {

@@ -5,6 +5,14 @@ import { Factory } from 'meteor/dburles:factory';
 import faker from 'faker';
 export const Tasks = new Mongo.Collection('tasks');
 
+if(Meteor.isServer) {
+  Meteor.publish('tasks', function() {
+    return Tasks.find({ $or: [
+        { active: {$eq: true}},
+      ]});
+  })
+}
+
 Meteor.methods({
   'tasks.insert'(description, checked=false, active=true) {
     check(description, String);
