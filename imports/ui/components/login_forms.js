@@ -2,7 +2,7 @@
   import { Template } from 'meteor/templating';
   import { $ } from 'meteor/jquery';
   import { ReactiveDict } from 'meteor/reactive-dict';
-
+import { Accounts } from 'meteor/accounts-base'
   import './login_forms.html'
 
 Template.login.onCreated(function() {
@@ -20,9 +20,22 @@ Template.login.helpers({
 Template.login.events({
     'submit form'(event) {
         event.preventDefault();
-        var emailVar = event.target.email.value;
-        var passwordVar = event.target.password.value;
-        console.log("Form submitted.");
+        let email = event.target.email.value;
+        let password = event.target.password.value;
+        const instance = Template.instance();
+        if(instance.state.get('isLogin')) {
+          Meteor.loginWithPassword(email,password, (error) => {
+            if(!error) {
+              console.log("deu certo");
+            }
+          });
+          console.log("fazendo login");
+        } else {
+          Accounts.createUser({email,password}, (error) => {
+              console.log("deu certo");
+          });
+          console.log("cadastrando");
+        }
     },
 
     'click .sign-up'(event) {

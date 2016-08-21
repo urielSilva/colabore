@@ -10,6 +10,10 @@
   </div><!-- /.navbar-collapse -->
 </nav><!-- /navbar -->
   <div class="container">
-  {{> login}}
+  {{#if currentUser}}
+    {{> task_panel}}
+  {{else}}
+    {{> login}}
+  {{/if}}
   </div>
 </body>
