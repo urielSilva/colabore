@@ -15,11 +15,9 @@ Meteor.methods({
       active: active,
       createdAt: new Date()
     };
-    var id= 1;
     return Tasks.insert(obj);
 
   },
-
   'tasks.activate' (taskId) {
     check(taskId, String)
     Tasks.update(taskId, {$set: {active: true}});

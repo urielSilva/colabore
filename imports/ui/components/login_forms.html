@@ -1,0 +1,23 @@
+
+<template name="login" >
+    <div class="login-container" >
+      <form action="" class="form-horizontal" novalidate>
+        <div class="input-group">
+          <input type="email" name="email" class="form-control" placeholder="Email">
+          <span class="form-control-feedback fui-mail"></span>
+        </div>
+        <div class="input-group">
+          <input type="password" autocomplete="new-password" class="form-control" name="password" placeholder="Senha">
+          <span class="form-control-feedback fui-lock"></span>
+        </div>
+        {{#if isLogin}}
+          <input id="login-btn" type="submit" value="Entrar" class="btn btn-primary btn-lg">
+          <small>Não possui cadastro? <a class="sign-up" href="">Registre-se!</a></small>
+        {{else}}
+          <input id="sign-up-btn" type="submit" value="Cadastrar" class="btn btn-info btn-lg">
+          <input class="sign-up btn btn-default btn-lg" type="button" value="Cancelar" >
+        {{/if}}
+      </form>
+    </div>
+
+</template>

@@ -14,7 +14,7 @@ Template.task.events({
   'click .task-delete'() {
     let id = this._id;
     Meteor.call('tasks.remove', this._id);
-    toastr.error('Removido com sucesso. Clique para desfazer', "", {onclick() {
+    toastr.error('Removida com sucesso. Clique para desfazer', "", {onclick() {
       Meteor.call('tasks.activate', id);
     }});
   }

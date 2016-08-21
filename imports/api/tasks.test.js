@@ -24,7 +24,7 @@ if(Meteor.isServer) {
       expect(task.active).to.be.false;
   });
 
-
+  
 }
 
 

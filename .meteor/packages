@@ -26,3 +26,6 @@ practicalmeteor:mocha
 practicalmeteor:faker
 practicalmeteor:chai
 dburles:factory
+accounts-ui
+accounts-password
+reactive-dict
