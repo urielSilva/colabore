@@ -2,7 +2,11 @@
   {{> menu}}
   <div class="container">
   {{#if currentUser}}
-    {{> task_panel}}
+    {{#if isAdmin}}
+      {{> task_panel}}
+    {{else}}
+      <div>nao é admin</div>
+    {{/if}}
   {{else}}
     {{> login}}
   {{/if}}

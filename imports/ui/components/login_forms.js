@@ -4,7 +4,7 @@
   import { ReactiveDict } from 'meteor/reactive-dict';
 import { Accounts } from 'meteor/accounts-base'
   import './login_forms.html'
-
+import { Roles } from 'meteor/alanning:roles'
 Template.login.onCreated(function() {
   this.state = new ReactiveDict();
   this.state.setDefault({isLogin: true});
@@ -24,19 +24,11 @@ Template.login.events({
         let password = event.target.password.value;
         const instance = Template.instance();
         if(instance.state.get('isLogin')) {
-          Meteor.loginWithPassword(email,password, (error) => {
-            if(!error) {
-              console.log("deu certo");
-            }
-          });
-          console.log("fazendo login");
+          Meteor.loginWithPassword(email,password);
         } else {
           let name = event.target.name.value;
-          console.log(name);
-          Accounts.createUser({email,password, profile: {name}}, (error) => {
-              console.log("deu certo");
-          });
-          console.log("cadastrando");
+          id = Accounts.createUser({email,password, profile: {name, role: "employee"}});
+          Roles.addUsersToRoles(id, ["employee"], Roles.GLOBAL_GROUP);
         }
     },
 
