@@ -18,7 +18,7 @@ Meteor.methods({
     return Tasks.insert(obj);
 
   },
-  'users.login'(taskId) {
+  'users.login'() {
     check(taskId, String)
     Tasks.update(taskId, {$set: {active: false}});
   },

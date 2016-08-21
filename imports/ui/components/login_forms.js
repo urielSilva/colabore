@@ -31,7 +31,9 @@ Template.login.events({
           });
           console.log("fazendo login");
         } else {
-          Accounts.createUser({email,password}, (error) => {
+          let name = event.target.name.value;
+          console.log(name);
+          Accounts.createUser({email,password, profile: {name}}, (error) => {
               console.log("deu certo");
           });
           console.log("cadastrando");

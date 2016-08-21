@@ -2,6 +2,12 @@
 <template name="login" >
     <div class="login-container" >
       <form action="" class="form-horizontal" novalidate>
+        {{#unless isLogin}}
+        <div class="input-group">
+          <input type="text" class="form-control" name="name" placeholder="Nome">
+          <span class="form-control-feedback fui-user"></span>
+        </div>
+        {{/unless}}
         <div class="input-group">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <span class="form-control-feedback fui-mail"></span>
@@ -10,6 +16,7 @@
           <input type="password" autocomplete="new-password" class="form-control" name="password" placeholder="Senha">
           <span class="form-control-feedback fui-lock"></span>
         </div>
+
         {{#if isLogin}}
           <input id="login-btn" type="submit" value="Entrar" class="btn btn-primary btn-lg">
           <small>Não possui cadastro? <a class="sign-up" href="">Registre-se!</a></small>
