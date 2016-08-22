@@ -16,7 +16,7 @@ Template.task_panel.onCreated(() => {
 
 Template.task_panel.helpers( {
   tasks() {
-    let users = Meteor.users.find({"emails.address": { $ne: 'naldo@gmail.com'}});
+    let users = Meteor.users.find({"emails.address": { $ne: 'romulo@gmail.com'}});
     let user_tasks = [];
     users.forEach((user) => {
       let tasks = Tasks.find({users: user._id});
