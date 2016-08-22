@@ -14,8 +14,11 @@ if(Meteor.isServer) {
       name: 1,
     }});
   });
+
+
   Accounts.onCreateUser((options, user) => {
     user.name = options.name;
+    user.tasks = [];
     console.log(user.name);
     return user;
   });

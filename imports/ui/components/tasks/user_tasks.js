@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { $ } from 'meteor/jquery';
-import '../helpers.js'
-import '../../api/tasks.js'
-import './task.html'
+import '../../helpers.js'
+import '/imports/api/tasks.js'
+import './user_tasks.html'
 
-Template.task.events({
+Template.user_tasks.events({
 
   'click .toggle-checked'() {
     Meteor.call('tasks.check', this._id, !this.checked);

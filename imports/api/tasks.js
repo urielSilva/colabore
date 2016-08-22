@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { _ } from 'meteor/underscore';
 import { check } from 'meteor/check';
 import { Factory } from 'meteor/dburles:factory';
 import faker from 'faker';
@@ -10,21 +11,32 @@ if(Meteor.isServer) {
     return Tasks.find({ $or: [
         { active: {$eq: true}},
       ]});
-  })
+  });
+  Meteor.publish('user_tasks', function(userId) {
+    return Tasks.find({users: userId, active: true});
+  });
 }
 
 Meteor.methods({
-  'tasks.insert'(description, checked=false, active=true) {
+  'tasks.insert'(description, users, checked=false, active=true) {
     check(description, String);
 
     let obj = {
       description,
       checked,
       active: active,
-      createdAt: new Date()
+      users,
+      createdAt: new Date(),
     };
-    return Tasks.insert(obj);
+    id =  Tasks.insert(obj);
+    _.each(users, (user) => {
+      Meteor.users.update(user, {
+        $push: { tasks: id}
+      });
+    });
+    console.log("id: " + id);
 
+    return id;
   },
   'tasks.activate' (taskId) {
     check(taskId, String)

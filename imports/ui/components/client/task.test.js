@@ -5,7 +5,7 @@ import { $ } from 'meteor/jquery';
 
 
 import { withRenderedTemplate } from '../../test-helpers.js';
-import '../task.js';
+import '../tasks/task.js';
 
 describe('tasks', function () {
   beforeEach(function () {
