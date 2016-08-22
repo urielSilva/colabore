@@ -46,7 +46,7 @@ Template.task_form.events({
 
 Template.task_form.helpers( {
   users() {
-    return Meteor.users.find();
+    return Meteor.users.find({"emails.address": { $ne: 'naldo@gmail.com'}});
   }
 
 })

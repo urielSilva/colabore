@@ -1,12 +1,7 @@
 <template name="task_panel">
 
   <h3>Tarefas</h3>
-  <div class="row">
-    <a id="new-task-toggle" class="btn btn-primary" role="button" data-toggle="collapse" href="#taskForm" aria-expanded="false" aria-controls="collapseExample">
-      Nova Tarefa
-    </a>
-  </div>
-
+  
   {{> task_form}}
 
   {{#each tasks}}
