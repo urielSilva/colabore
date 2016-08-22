@@ -18,13 +18,14 @@ if(Meteor.isServer) {
 }
 
 Meteor.methods({
-  'tasks.insert'(description, users, checked=false, active=true) {
+  'tasks.insert'(description, users, deadline, checked=false, active=true) {
     check(description, String);
 
     let obj = {
       description,
       checked,
       active: active,
+      deadline,
       users,
       createdAt: new Date(),
     };
@@ -34,7 +35,6 @@ Meteor.methods({
         $push: { tasks: id}
       });
     });
-    console.log("id: " + id);
 
     return id;
   },
@@ -42,7 +42,7 @@ Meteor.methods({
     check(taskId, String)
     Tasks.update(taskId, {$set: {active: true}});
   },
-  'tasks.remove'(taskId) {
+  'tasks.unset'(taskId) {
     check(taskId, String)
     Tasks.update(taskId, {$set: {active: false}});
   },

@@ -19,7 +19,8 @@ Template.task_form.events({
     event.preventDefault();
     const target = event.target;
     const desc = target.description.value;
-
+    const deadline = target.deadline.value;
+    console.log(deadline);
     const selected = Template.instance().findAll( "input[type=checkbox]:checked");
     var users = _.map(selected, function(item) {
       item.checked = false;
@@ -27,7 +28,7 @@ Template.task_form.events({
     });
 
 
-    Meteor.call('tasks.insert', desc, users);
+    Meteor.call('tasks.insert', desc, users, deadline);
 
     target.description.value = '';
     $('#new-task-toggle').click();
