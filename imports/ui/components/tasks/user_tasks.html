@@ -1,10 +1,11 @@
 <template name="user_tasks">
 
-  <div class="task-container col-xs-4">
+  {{#each users}}
+  <div class="user-tasks-container col-xs-4">
     <h4 class="title">{{name}}</h4>
     <div class="tasks-wrapper">
       {{#each tasks}}
-        <div class="task">
+        <div class="task {{checkedClass(checked)}}">
           <span>{{description}}</span>
           <small class="pull-right">{{deadline}}</small>
           <!-- <div class="actions">
@@ -12,7 +13,8 @@
           </div> -->
         </div>
       {{/each}}
-
     </div>
   </div>
-</template>
+  {{/each}}
+
+  </template>

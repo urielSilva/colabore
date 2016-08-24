@@ -6,7 +6,7 @@
     {{#if isAdmin}}
       {{> task_panel}}
     {{else}}
-      <div>nao é admin</div>
+      {{> user_panel}}
     {{/if}}
   {{else}}
     {{> login}}

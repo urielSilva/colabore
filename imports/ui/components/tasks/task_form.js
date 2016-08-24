@@ -20,13 +20,12 @@ Template.task_form.events({
     const target = event.target;
     const desc = target.description.value;
     const deadline = target.deadline.value;
-    console.log(deadline);
     const selected = Template.instance().findAll( "input[type=checkbox]:checked");
     var users = _.map(selected, function(item) {
       item.checked = false;
-      return item.defaultValue;
+      let id = item.defaultValue;
+      return Meteor.users.findOne(id);
     });
-
 
     Meteor.call('tasks.insert', desc, users, deadline);
 

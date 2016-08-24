@@ -8,12 +8,10 @@ export const Tasks = new Mongo.Collection('tasks');
 
 if(Meteor.isServer) {
   Meteor.publish('tasks', function() {
-    return Tasks.find({ $or: [
-        { active: {$eq: true}},
-      ]});
+    return Tasks.find({});
   });
-  Meteor.publish('user_tasks', function(userId) {
-    return Tasks.find({users: userId, active: true});
+  Meteor.publish('current_user_tasks', function() {
+    return Tasks.find({users: this.userId, active: true});
   });
 }
 
@@ -21,18 +19,26 @@ Meteor.methods({
   'tasks.insert'(description, users, deadline, checked=false, active=true) {
     check(description, String);
 
+    // let usersObj = _.map(users, (user) => {
+    //   return {
+    //     user,
+    //     checked,
+    //     active
+    //   };
+    // })
+
     let obj = {
       description,
-      checked,
-      active: active,
       deadline,
-      users,
+      // users: usersObj,
       createdAt: new Date(),
     };
     id =  Tasks.insert(obj);
+    obj._id = id;
+    obj.checked = checked;
     _.each(users, (user) => {
       Meteor.users.update(user, {
-        $push: { tasks: id}
+        $push: { tasks: obj}
       });
     });
 

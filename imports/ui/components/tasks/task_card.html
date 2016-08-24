@@ -1,0 +1,13 @@
+<template name="task_card">
+  <div class="task-container col-xs-4 {{checkedClass}}">
+    <h5>{{description}}</h5>
+    {{#if isChecked}}
+      <span class="fui-cross undo-task pull-right"></span>
+      <small >Finalizada!</small>
+    {{else}}
+      <span class="fui-check complete-task pull-right"></span>
+    {{/if}}
+    <small>Criada em {{formatDate createdAt}}</small>
+    <small>Prazo: {{deadline}}</small>
+</div>
+</template>

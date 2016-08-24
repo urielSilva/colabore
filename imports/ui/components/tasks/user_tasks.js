@@ -7,6 +7,7 @@ import './user_tasks.html'
 
 Template.user_tasks.onRendered(() => {
   $('#datepicker').datepicker();
+  Meteor.subscribe('users');
 })
 
 Template.user_tasks.events({
@@ -21,4 +22,13 @@ Template.user_tasks.events({
       Meteor.call('tasks.activate', id);
     }});
   }
-})
+});
+
+Template.user_tasks.helpers({
+  users() {
+      return Meteor.users.find({"emails.address": { $ne: 'romulo@gmail.com'}});
+  },
+  checkedClass(checked) {
+    return checked? 'task-checked' : 'task-unchecked'
+  }
+});

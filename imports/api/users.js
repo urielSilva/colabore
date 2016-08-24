@@ -6,12 +6,16 @@ if(Meteor.isServer) {
   Meteor.publish('users', () => {
     return Meteor.users.find({}, {fields: {
       name: 1,
+      emails: 1,
+      tasks: 1
     }});
   })
   Meteor.publish('userData', function() {
     if(!this.userId) return null;
     return Meteor.users.find(this.userId, {fields: {
       name: 1,
+      emails: 1,
+      tasks: 1
     }});
   });
 
@@ -19,7 +23,6 @@ if(Meteor.isServer) {
   Accounts.onCreateUser((options, user) => {
     user.name = options.name;
     user.tasks = [];
-    console.log(user.name);
     return user;
   });
 }
@@ -39,8 +42,14 @@ Meteor.methods({
     return Tasks.insert(obj);
 
   },
-  'users.login'() {
-    check(taskId, String)
-    Tasks.update(taskId, {$set: {active: false}});
+  // 'users.login'() {
+  //   check(taskId, String)
+  //   Tasks.update(taskId, {$set: {active: false}});
+  // },
+  'users.complete_task'(userId, taskId) {
+    Meteor.users.update({_id: userId,"tasks._id": taskId}, {$set: {"tasks.$.checked": true}});
   },
+  'users.undo_task'(userId, taskId) {
+    Meteor.users.update({_id: userId,"tasks._id": taskId}, {$set: {"tasks.$.checked": false}});
+  }
 });
