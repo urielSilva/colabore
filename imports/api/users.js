@@ -27,25 +27,7 @@ if(Meteor.isServer) {
   });
 }
 
-
-
 Meteor.methods({
-  'users.insert'(description, checked=false, active=true) {
-    check(description, String);
-
-    let obj = {
-      description,
-      checked,
-      active: active,
-      createdAt: new Date()
-    };
-    return Tasks.insert(obj);
-
-  },
-  // 'users.login'() {
-  //   check(taskId, String)
-  //   Tasks.update(taskId, {$set: {active: false}});
-  // },
   'users.complete_task'(userId, taskId) {
     Meteor.users.update({_id: userId,"tasks._id": taskId}, {$set: {"tasks.$.checked": true}});
   },

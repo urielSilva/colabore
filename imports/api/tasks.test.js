@@ -1,8 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Factory } from 'meteor/dburles:factory';
 import { chai } from 'meteor/practicalmeteor:chai';
-
+import { Random } from 'meteor/random'
 import './tasks.js';
+import './tasks_factory.js';
+import './users_factory.js';
 import { Tasks } from './tasks.js'
 describe('tasks', function () {
 if(Meteor.isServer) {
@@ -14,17 +16,14 @@ if(Meteor.isServer) {
     chai.expect(id).to.not.be.false;
   });
 
-  it('soft deletes a task', function(){
-      var id;
-      Meteor.call('tasks.insert', 'testeiro', function(error,result) {
-        id = result;
-      });
-      Meteor.call('tasks.remove', id);
-      let task = Tasks.findOne({_id: id});
-      expect(task.active).to.be.false;
-  });
+  it ('assigns a tasks to a user',function() {
+    let user = Factory.create('user');
+    Meteor.call('tasks.insert', 'testeiro', [user], '31/12/2016');
+    user = Meteor.users.findOne(user._id);
+    chai.expect(user.tasks.length).to.equal(2);
+  })
 
-  
+
 }
 
 

@@ -17,8 +17,7 @@ Template.login.onCreated(function() {
 
 Template.login.helpers({
   isLogin() {
-    const instance = Template.instance();
-    return instance.state.get('isLogin');
+    return Template.instance().state.get('isLogin');
   }
 });
 
