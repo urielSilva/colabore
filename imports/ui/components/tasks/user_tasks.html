@@ -5,16 +5,24 @@
     <h4 class="title">{{name}}</h4>
     <div class="tasks-wrapper">
       {{#each tasks}}
-        <div class="task {{checkedClass(checked)}}">
-          <span>{{description}}</span>
-          <small class="pull-right">{{deadline}}</small>
-          <!-- <div class="actions">
-            <span class="fui-trash delete-task"></span>
-          </div> -->
-        </div>
+        {{ > user_task}}
       {{/each}}
     </div>
   </div>
   {{/each}}
 
   </template>
+
+<template name="user_task">
+  <div class="task {{checkedClass(checked)}}">
+    <span>{{description}}</span>
+    <div class="actions">
+      {{#if checked}}
+        <span class="fui-cross undo-task"></span>
+      {{else}}
+        <span class="fui-check complete-task"></span>
+      {{/if}}
+    </div>
+    <small class="">Prazo: {{deadline}}</small>
+  </div>
+</template>

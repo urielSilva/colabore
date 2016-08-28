@@ -12,22 +12,29 @@ Template.user_tasks.onRendered(() => {
 
 Template.user_tasks.events({
 
-  'click .toggle-checked'() {
-    Meteor.call('tasks.check', this._id, !this.checked);
-  },
+});
 
-  'click .delete-task'() {
-    Meteor.call('tasks.unset', this._id, Template.currentData().user_id);
-    toastr.error('Tarefa removida para este usuário. Clique para desfazer', "", {onclick() {
-      Meteor.call('tasks.activate', id);
-    }});
+Template.user_task.events({
+  'click .undo-task'() {
+    Meteor.call('users.undo_task', Template.parentData(1)._id, this._id);
+    toastr.success('Tarefa desfeita com sucesso');
+  },
+  'click .complete-task'() {
+    Meteor.call('users.complete_task', Template.parentData(1)._id, this._id);
+    let taskId = this._id;
+    toastr.success('Tarefa finalizada com sucesso. Clique para desfazer', "", {onclick() {
+     Meteor.call('users.undo_task', Template.parentData(1)._id, taskId);
+   }});
   }
 });
 
 Template.user_tasks.helpers({
   users() {
       return Meteor.users.find({"emails.address": { $ne: 'romulo@gmail.com'}});
-  },
+  }
+});
+
+Template.user_task.helpers({
   checkedClass(checked) {
     return checked? 'task-checked' : 'task-unchecked'
   }
